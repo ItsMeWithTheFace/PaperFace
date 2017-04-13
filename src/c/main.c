@@ -3,6 +3,23 @@
 static Window *s_main_window;
 static TextLayer *s_time_layer; // Will display the time in the main Window
 
+static void update_time() {
+	// Get the tm structure
+	time_t temp = time(NULL);
+	struct tm *tick_time = localtime(&temp);
+	
+	// Write current hours and minutes into a buffer
+	static char s_buffer[8];
+	strftime(s_buffer, sizeof(s_buffer), clock_is_24h_style() ? "%H:%M" : "%I:%M", tick_time);
+	
+	// Display new time on TextLayer
+	text_layer_set_text(s_time_layer, s_buffer);
+}
+
+static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
+	update_time();
+}
+
 // Handler for loading the Window and its elements
 static void main_window_load(Window *window) {
 	// Get information about the window
@@ -39,6 +56,15 @@ static void init() {
 		.load = main_window_load,
 		.unload = main_window_unload
 	});
+	
+	// Instantiate TimeTickerService
+	tick_timer_service_subscribe(MINUTE_UNIT, tick_handler);
+	
+	// Show the Window on watch, with animated=true
+	window_stack_push(s_main_window, true);
+	
+	// Make sure time is displayed from start
+	update_time();
 }
 
 static void deinit() {
