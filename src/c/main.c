@@ -1,7 +1,8 @@
 #include <pebble.h>
 
-static Window *s_main_window;
+static Window *s_main_window; // Root window
 static TextLayer *s_time_layer; // Will display the time in the main Window
+static GFont s_time_font; // Custom font
 
 static void update_time() {
 	// Get the tm structure
@@ -26,16 +27,19 @@ static void main_window_load(Window *window) {
 	Layer *window_layer = window_get_root_layer(window);
 	GRect bounds = layer_get_bounds(window_layer);
 	
+	// Create GFont
+	s_time_font = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_KEY_FOOTFIGHT_BOLD_42));
+	
 	// Create the TextLayer with specific bounds
 	s_time_layer = text_layer_create(
-		GRect(0, PBL_IF_ROUND_ELSE(58, 52), bounds.size.w, 50));	// Changes display based on round or rectanguler display
+		GRect(0, PBL_IF_ROUND_ELSE(58, 100), bounds.size.w, 50));	// Changes display based on round or rectanguler display
 	
 	// Enhance the look of the layout
 	text_layer_set_background_color(s_time_layer, GColorClear);
 	text_layer_set_text_color(s_time_layer, GColorBlack);
 	text_layer_set_text(s_time_layer, "00:00");
-	text_layer_set_font(s_time_layer, fonts_get_system_font(FONT_KEY_BITHAM_42_BOLD));
-	text_layer_set_text_alignment(s_time_layer, GTextAlignmentCenter);
+	text_layer_set_font(s_time_layer, s_time_font);		// Apply custom f
+	text_layer_set_text_alignment(s_time_layer, GTextAlignmentRight);
 	
 	// Add TextLayer as child layer to Window's root layer
 	layer_add_child(window_layer, text_layer_get_layer(s_time_layer));
@@ -45,6 +49,9 @@ static void main_window_load(Window *window) {
 static void main_window_unload(Window *window) {
 	// Destroy TextLayer to free up memory
 	text_layer_destroy(s_time_layer);
+	
+	// Unload custom font
+	fonts_unload_custom_font(s_time_font);
 }
 
 static void init() {
