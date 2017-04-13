@@ -1,0 +1,26 @@
+{
+    "author": "Rakin Uddin",
+    "dependencies": {},
+    "keywords": [],
+    "name": "paperdisp",
+    "pebble": {
+        "displayName": "PaperDispWatchface",
+        "enableMultiJS": true,
+        "messageKeys": [],
+        "projectType": "native",
+        "resources": {
+            "media": []
+        },
+        "sdkVersion": "3",
+        "targetPlatforms": [
+            "aplite",
+            "basalt",
+            "chalk"
+        ],
+        "uuid": "4c633854-dfa2-4018-b2b2-eb470e49708e",
+        "watchapp": {
+            "watchface": true
+        }
+    },
+    "version": "1.0.0"
+}
