@@ -3,6 +3,8 @@
 static Window *s_main_window; // Root window
 static TextLayer *s_time_layer; // Will display the time in the main Window
 static GFont s_time_font; // Custom font
+static BitmapLayer *s_background_layer;	// Background layer which holds the GBitmap
+static GBitmap *s_background_bitmap; //Custom bitmap background
 
 static void update_time() {
 	// Get the tm structure
@@ -27,6 +29,12 @@ static void main_window_load(Window *window) {
 	Layer *window_layer = window_get_root_layer(window);
 	GRect bounds = layer_get_bounds(window_layer);
 	
+	// Create GBitmap
+	s_background_bitmap = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_PAPER_CRUMPLED);
+	
+	// Create BitmapLayer to display the GBitmap
+	s_background_layer = bitmap_layer_create(bounds);
+	
 	// Create GFont
 	s_time_font = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_KEY_FOOTFIGHT_BOLD_42));
 	
@@ -41,12 +49,22 @@ static void main_window_load(Window *window) {
 	text_layer_set_font(s_time_layer, s_time_font);		// Apply custom f
 	text_layer_set_text_alignment(s_time_layer, GTextAlignmentRight);
 	
+	// Set the bitmap onto the layer and add to window
+	bitmap_layer_set_bitmap(s_background_layer, s_background_bitmap);
+	layer_add_child(window_layer, bitmap_layer_get_layer(s_background_layer));
+	
 	// Add TextLayer as child layer to Window's root layer
 	layer_add_child(window_layer, text_layer_get_layer(s_time_layer));
 }
 
 // Handler for unloading the Window
 static void main_window_unload(Window *window) {
+	// Destroy GBitmap
+	gbitmap_destroy(s_background_bitmap);
+	
+	// Destroy the BitmapLayer
+	bitmap_layer_destroy(s_background_layer);
+	
 	// Destroy TextLayer to free up memory
 	text_layer_destroy(s_time_layer);
 	

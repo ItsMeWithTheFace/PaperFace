@@ -2,14 +2,20 @@
     "author": "Rakin Uddin",
     "dependencies": {},
     "keywords": [],
-    "name": "paperdisp",
+    "name": "paper",
     "pebble": {
-        "displayName": "PaperDispWatchface",
+        "displayName": "PaperPencilDisplay",
         "enableMultiJS": true,
         "messageKeys": [],
         "projectType": "native",
         "resources": {
             "media": [
+                {
+                    "file": "images/paper.png",
+                    "name": "IMAGE_PAPER_CRUMPLED",
+                    "targetPlatforms": null,
+                    "type": "bitmap"
+                },
                 {
                     "file": "fonts/footfight.ttf",
                     "name": "FONT_KEY_FOOTFIGHT_BOLD_42",
@@ -20,7 +26,9 @@
         },
         "sdkVersion": "3",
         "targetPlatforms": [
-            "basalt"
+            "aplite",
+            "basalt",
+            "chalk"
         ],
         "uuid": "4c633854-dfa2-4018-b2b2-eb470e49708e",
         "watchapp": {
