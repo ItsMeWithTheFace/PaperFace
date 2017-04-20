@@ -2,9 +2,9 @@
     "author": "Rakin Uddin",
     "dependencies": {},
     "keywords": [],
-    "name": "paper",
+    "name": "paperface",
     "pebble": {
-        "displayName": "PaperPencilDisplay",
+        "displayName": "PaperFace",
         "enableMultiJS": true,
         "messageKeys": [],
         "projectType": "native",
