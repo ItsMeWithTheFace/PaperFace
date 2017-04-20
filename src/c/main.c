@@ -5,7 +5,7 @@ static TextLayer *s_time_layer; // Will display the time in the main Window
 static TextLayer *s_its_layer; // Displays the word "It's" in the main Window
 static TextLayer *s_hey_layer; // Displays the word "Hey..." in the main Window
 static GFont s_time_font; // Custom font for time and IT'S TextLayers
-static GFont s_hey_font; // Custom font for Hey TextLayer
+static GFont s_hey_font; // Custom font for Hey TextLayer (smaller version of s_time_font)
 static BitmapLayer *s_background_layer;	// Background layer which holds the GBitmap
 static GBitmap *s_background_bitmap; //Custom bitmap background
 
@@ -66,14 +66,28 @@ static void main_window_load(Window *window) {
 	text_layer_set_font(s_its_layer, s_time_font);
 	text_layer_set_text_alignment(s_its_layer, GTextAlignmentRight);
 	
+	// Create TextLayer to display "Hey..."
+	s_hey_layer = text_layer_create(
+		GRect(0, PBL_IF_ROUND_ELSE(58, 38), bounds.size.w, 50));
+	
+	// Enhance the look of the Hey Layer
+	text_layer_set_background_color(s_hey_layer, GColorClear);
+	text_layer_set_text_color(s_hey_layer, GColorBlack);
+	text_layer_set_text(s_hey_layer, "Hey...");
+	text_layer_set_font(s_hey_layer, s_hey_font);
+	text_layer_set_text_alignment(s_hey_layer, GTextAlignmentLeft);
+	
 	// Set the bitmap onto the layer and add to window
 	bitmap_layer_set_bitmap(s_background_layer, s_background_bitmap);
 	layer_add_child(window_layer, bitmap_layer_get_layer(s_background_layer));
 	
-	// Add the IT'S TextLayer as child layer to Window
+	// Add the Hey TextLayer to Window
+	layer_add_child(window_layer, text_layer_get_layer(s_hey_layer));
+	
+	// Add the IT'S TextLayer to Window
 	layer_add_child(window_layer, text_layer_get_layer(s_its_layer));
 	
-	// Add time TextLayer as child layer to Window's root layer
+	// Add time TextLayer to Window
 	layer_add_child(window_layer, text_layer_get_layer(s_time_layer));
 }
 
@@ -85,14 +99,20 @@ static void main_window_unload(Window *window) {
 	// Destroy the BitmapLayer
 	bitmap_layer_destroy(s_background_layer);
 	
+	// Destroy Hey TextLayer
+	text_layer_destroy(s_hey_layer);
+	
 	// Destroy the IT'S TextLayer
 	text_layer_destroy(s_its_layer);
 	
 	// Destroy time TextLayer to free up memory
 	text_layer_destroy(s_time_layer);
 	
-	// Unload custom font
+	// Unload custom size 42 font
 	fonts_unload_custom_font(s_time_font);
+	
+	// Unload custom size 19 font
+	fonts_unload_custom_font(s_hey_font);
 }
 
 static void init() {
