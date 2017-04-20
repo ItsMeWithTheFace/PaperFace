@@ -52,7 +52,7 @@ static void main_window_load(Window *window) {
 	
 	// Create TextLayer to display "IT'S"
 	s_its_layer = text_layer_create(
-		GRect(0, PBL_IF_ROUND_ELSE(58, 52), bounds.size.w, 50));
+		GRect(0, PBL_IF_ROUND_ELSE(58, 38), bounds.size.w-10, 50));		// Apply a left shift by 10 units
 	
 	// Enhance the look of the IT'S layer
 	text_layer_set_background_color(s_its_layer, GColorClear);
@@ -80,7 +80,10 @@ static void main_window_unload(Window *window) {
 	// Destroy the BitmapLayer
 	bitmap_layer_destroy(s_background_layer);
 	
-	// Destroy TextLayer to free up memory
+	// Destroy the IT'S TextLayer
+	text_layer_destroy(s_its_layer);
+	
+	// Destroy time TextLayer to free up memory
 	text_layer_destroy(s_time_layer);
 	
 	// Unload custom font
