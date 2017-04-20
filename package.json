@@ -11,6 +11,12 @@
         "resources": {
             "media": [
                 {
+                    "file": "fonts/footfight_19.ttf",
+                    "name": "FONT_KEY_FOOTFIGHT_BOLD_19",
+                    "targetPlatforms": null,
+                    "type": "font"
+                },
+                {
                     "file": "images/paper.png",
                     "name": "IMAGE_PAPER_CRUMPLED",
                     "targetPlatforms": null,

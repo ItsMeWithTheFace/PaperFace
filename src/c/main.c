@@ -3,7 +3,9 @@
 static Window *s_main_window; // Root window
 static TextLayer *s_time_layer; // Will display the time in the main Window
 static TextLayer *s_its_layer; // Displays the word "It's" in the main Window
-static GFont s_time_font; // Custom font
+static TextLayer *s_hey_layer; // Displays the word "Hey..." in the main Window
+static GFont s_time_font; // Custom font for time and IT'S TextLayers
+static GFont s_hey_font; // Custom font for Hey TextLayer
 static BitmapLayer *s_background_layer;	// Background layer which holds the GBitmap
 static GBitmap *s_background_bitmap; //Custom bitmap background
 
@@ -36,8 +38,11 @@ static void main_window_load(Window *window) {
 	// Create BitmapLayer to display the GBitmap
 	s_background_layer = bitmap_layer_create(bounds);
 	
-	// Create GFont
+	// Create GFont for time TextLayer
 	s_time_font = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_KEY_FOOTFIGHT_BOLD_42));
+	
+	// Create GFont for Hey TextLayer
+	s_hey_font = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_KEY_FOOTFIGHT_BOLD_19));
 	
 	// Create the TextLayer with specific bounds which displays time
 	s_time_layer = text_layer_create(
