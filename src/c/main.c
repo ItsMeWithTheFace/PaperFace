@@ -2,6 +2,7 @@
 
 static Window *s_main_window; // Root window
 static TextLayer *s_time_layer; // Will display the time in the main Window
+static TextLayer *s_its_layer; // Displays the word "It's" in the main Window
 static GFont s_time_font; // Custom font
 static BitmapLayer *s_background_layer;	// Background layer which holds the GBitmap
 static GBitmap *s_background_bitmap; //Custom bitmap background
@@ -38,22 +39,36 @@ static void main_window_load(Window *window) {
 	// Create GFont
 	s_time_font = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_KEY_FOOTFIGHT_BOLD_42));
 	
-	// Create the TextLayer with specific bounds
+	// Create the TextLayer with specific bounds which displays time
 	s_time_layer = text_layer_create(
-		GRect(0, PBL_IF_ROUND_ELSE(58, 100), bounds.size.w, 50));	// Changes display based on round or rectanguler display
+		GRect(0, PBL_IF_ROUND_ELSE(58, 100), bounds.size.w, 50));
 	
-	// Enhance the look of the layout
+	// Enhance the look of the time layer
 	text_layer_set_background_color(s_time_layer, GColorClear);
 	text_layer_set_text_color(s_time_layer, GColorBlack);
 	text_layer_set_text(s_time_layer, "00:00");
-	text_layer_set_font(s_time_layer, s_time_font);		// Apply custom f
+	text_layer_set_font(s_time_layer, s_time_font);
 	text_layer_set_text_alignment(s_time_layer, GTextAlignmentRight);
+	
+	// Create TextLayer to display "IT'S"
+	s_its_layer = text_layer_create(
+		GRect(0, PBL_IF_ROUND_ELSE(58, 52), bounds.size.w, 50));
+	
+	// Enhance the look of the IT'S layer
+	text_layer_set_background_color(s_its_layer, GColorClear);
+	text_layer_set_text_color(s_its_layer, GColorBlack);
+	text_layer_set_text(s_its_layer, "IT'S");
+	text_layer_set_font(s_its_layer, s_time_font);
+	text_layer_set_text_alignment(s_its_layer, GTextAlignmentRight);
 	
 	// Set the bitmap onto the layer and add to window
 	bitmap_layer_set_bitmap(s_background_layer, s_background_bitmap);
 	layer_add_child(window_layer, bitmap_layer_get_layer(s_background_layer));
 	
-	// Add TextLayer as child layer to Window's root layer
+	// Add the IT'S TextLayer as child layer to Window
+	layer_add_child(window_layer, text_layer_get_layer(s_its_layer));
+	
+	// Add time TextLayer as child layer to Window's root layer
 	layer_add_child(window_layer, text_layer_get_layer(s_time_layer));
 }
 
