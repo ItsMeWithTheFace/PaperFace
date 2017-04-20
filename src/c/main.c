@@ -57,7 +57,7 @@ static void main_window_load(Window *window) {
 	
 	// Create TextLayer to display "IT'S"
 	s_its_layer = text_layer_create(
-		GRect(0, PBL_IF_ROUND_ELSE(58, 38), bounds.size.w-10, 50));		// Apply a left shift by 10 units
+		GRect(0, PBL_IF_ROUND_ELSE(58, 38), bounds.size.w-15, 50));		// Set x max to stop 15 units short (for left shift)
 	
 	// Enhance the look of the IT'S layer
 	text_layer_set_background_color(s_its_layer, GColorClear);
@@ -68,7 +68,7 @@ static void main_window_load(Window *window) {
 	
 	// Create TextLayer to display "Hey..."
 	s_hey_layer = text_layer_create(
-		GRect(0, PBL_IF_ROUND_ELSE(58, 38), bounds.size.w, 50));
+		GRect(15, PBL_IF_ROUND_ELSE(58, 62), bounds.size.w, 50));		// Start x at 15 units offset
 	
 	// Enhance the look of the Hey Layer
 	text_layer_set_background_color(s_hey_layer, GColorClear);
