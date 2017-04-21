@@ -73,7 +73,7 @@ static void main_window_load(Window *window) {
 	// Enhance the look of the Hey Layer
 	text_layer_set_background_color(s_hey_layer, GColorClear);
 	text_layer_set_text_color(s_hey_layer, GColorBlack);
-	text_layer_set_text(s_hey_layer, "Hey...");
+	text_layer_set_text(s_hey_layer, "Hey . . .");
 	text_layer_set_font(s_hey_layer, s_hey_font);
 	text_layer_set_text_alignment(s_hey_layer, GTextAlignmentLeft);
 	
