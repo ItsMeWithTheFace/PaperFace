@@ -6,12 +6,12 @@ hash_table_s *create_hash_table(int size) {
 	hash_table_s *new_table;
 	
 	// Allocate memory for the hashtable struct
-	if ((new_table = malloc(sizeof(hash_value_s))) == NULL) {
+	if ((new_table = malloc(sizeof(hash_table_s))) == NULL) {
 		return NULL;
 	}
 	
 	// Allocate memory for the entries
-	if ((new_table->table = malloc(sizeof(list_t *) * size)) == NULL) {
+	if ((new_table->table = malloc(sizeof(entry_s *) * size)) == NULL) {
 		return NULL;
 	}
 	
