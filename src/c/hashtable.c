@@ -23,3 +23,18 @@ hash_table_s *create_hash_table(int size) {
 	
 	return new_table;
 }
+
+
+unsigned int hash(hash_table_s *hashtable, char *key) {
+	unsigned int hashval = 0;	// Initialize it as 0 for hashing loop
+	
+	// Shift hashval left by 5 bits and add the current char to it
+	for (; *key != '\0'; key++) {
+		hashval = hashval << 5;
+		hashval += *key;
+	}
+	
+	// Apply mod so that result is in range of the size
+	return hashval % hashtable->size;
+	
+}
