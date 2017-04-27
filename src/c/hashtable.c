@@ -36,5 +36,19 @@ unsigned int hash(hash_table_s *hashtable, char *key) {
 	
 	// Apply mod so that result is in range of the size
 	return hashval % hashtable->size;
-	
 }
+
+char *get_value(hash_table_s *hashtable, char *key) {
+	entry_s *entrys;
+	unsigned int hashval = hash(hashtable, key);
+	
+	// After hashing the key find it in the hashtable and return corresponding value; else NULL
+	for(entrys = hashtable->table[hashval]; entrys != NULL; entrys = entrys->next) {
+		if(strcmp(key, entrys->key) == 0) {
+			return entrys->value;
+		} 
+	}
+	
+	return NULL;
+}
+
