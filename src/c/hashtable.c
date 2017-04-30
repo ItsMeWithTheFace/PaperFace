@@ -67,8 +67,8 @@ int insert_keyvalue(hash_table_s *hashtable, char *key, char *value) {
 	if ((existing_entry = get_entry(hashtable, key)) != NULL) return 17;
 
 	// Insert into hashtable at the beginning of linked list
-	new_entry->key = strdup(key);
-	new_entry->value = strdup(value);
+	strcpy(new_entry->key, key);
+	strcpy(new_entry->value, value);
 	new_entry->next = hashtable->table[hashval];	// new entry points to original head
 	hashtable->table[hashval] = new_entry;			// new entry becomes head
 	
