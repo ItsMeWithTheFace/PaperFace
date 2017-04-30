@@ -1,4 +1,5 @@
 #include <pebble.h>
+#include <string.h>
 #include "hashtable.h"
 
 hash_table_s *create_hash_table(int size) {
@@ -38,17 +39,38 @@ unsigned int hash(hash_table_s *hashtable, char *key) {
 	return hashval % hashtable->size;
 }
 
-char *get_value(hash_table_s *hashtable, char *key) {
+entry_s *get_entry(hash_table_s *hashtable, char *key) {
 	entry_s *entrys;
 	unsigned int hashval = hash(hashtable, key);
 	
 	// After hashing the key find it in the hashtable and return corresponding value; else NULL
 	for(entrys = hashtable->table[hashval]; entrys != NULL; entrys = entrys->next) {
 		if(strcmp(key, entrys->key) == 0) {
-			return entrys->value;
+			return entrys;
 		} 
 	}
 	
 	return NULL;
 }
 
+int insert_keyvalue(hash_table_s *hashtable, char *key, char *value) {
+	entry_s *new_entry;
+	entry_s *existing_entry;
+	unsigned int hashval = hash(hashtable, key);
+	
+	// Allocate memory for new entry
+	if ((new_entry = malloc(sizeof(entry_s))) == NULL) return 1;
+	
+	// Check if item already exists
+	// If so, do not insert and return error code 17 
+	// (see errno-base.h for error code details)
+	if ((existing_entry = get_entry(hashtable, key)) != NULL) return 17;
+
+	// Insert into hashtable at the beginning of linked list
+	new_entry->key = strdup(key);
+	new_entry->value = strdup(value);
+	new_entry->next = hashtable->table[hashval];	// new entry points to original head
+	hashtable->table[hashval] = new_entry;			// new entry becomes head
+	
+	return 0;
+}
