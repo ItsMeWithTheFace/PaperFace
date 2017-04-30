@@ -74,3 +74,21 @@ int insert_keyvalue(hash_table_s *hashtable, char *key, char *value) {
 	
 	return 0;
 }
+
+void free_hashtable(hash_table_s *hashtable) {
+	int i;
+	entry_s *entry_to_free, *rest;
+	
+	// Iterate through linked list and free each element and their strings
+	for (i = 0; i < hashtable->size; i++) {
+		entry_to_free = hashtable->table[i];
+		while (entry_to_free != NULL) {
+			rest = entry_to_free->next;
+			free(entry_to_free->key);
+			free(entry_to_free->value);
+			free(entry_to_free);
+			entry_to_free = rest;
+		}
+	}
+}
+
