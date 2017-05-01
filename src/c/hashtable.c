@@ -70,7 +70,7 @@ int insert_keyvalue(hash_table_s *hashtable, char *key, char *value) {
 	strcpy(new_entry->key, key);
 	strcpy(new_entry->value, value);
 	new_entry->next = hashtable->table[hashval];	// new entry points to original head
-	hashtable->table[hashval] = new_entry;			// new entry becomes head
+	hashtable->table[hashval] = new_entry;		// new entry becomes head
 	
 	return 0;
 }
