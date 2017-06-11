@@ -7,6 +7,8 @@
 
 static hash_table_s *ones;
 static hash_table_s *tens;
+char tokenized_time[2][5];
+
 
 void populate_hashtables(){
 	// Create the hashtables
@@ -48,10 +50,9 @@ void destroy_hashtables(){
 	free_hashtable(tens);
 }
 
-char ** tokenize(char * curr_time){
+void tokenize(char * curr_time){
 	// assumes time is of format HH:MM
-	const char delimiter = ":";
-	char [2][5] tokenized_time;
+	const char delimiter[2] = ":";
 	char *token;
 
 	// getting the first token (hours)
@@ -61,6 +62,4 @@ char ** tokenize(char * curr_time){
 	//getting the second token (minutes)
 	token = strtok(NULL, delimiter);
 	strcpy(tokenized_time[1], token);
-
-	return tokenized_time;
 }
