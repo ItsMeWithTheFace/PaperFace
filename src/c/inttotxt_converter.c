@@ -1,6 +1,7 @@
 #define HT_SIZE 10
 
 #include <pebble.h>
+#include <string.h>
 #include "src/c/hashtable.h"
 #include "inttotxt_converter.h"
 
@@ -47,4 +48,19 @@ void destroy_hashtables(){
 	free_hashtable(tens);
 }
 
+char ** tokenize(char * curr_time){
+	// assumes time is of format HH:MM
+	const char delimiter = ":";
+	char [2][5] tokenized_time;
+	char *token;
 
+	// getting the first token (hours)
+	token = strtok(curr_time, delimiter);
+	strcpy(tokenized_time[0], token);
+
+	//getting the second token (minutes)
+	token = strtok(NULL, delimiter);
+	strcpy(tokenized_time[1], token);
+
+	return tokenized_time;
+}
